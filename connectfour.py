@@ -25,7 +25,6 @@ class Tabuleiro():
         return True
 
     
-    
     def show_tabuleiro(self):
         print("\n  0 1 2 3 4 5 6")
         print(" +-------------+")
@@ -38,6 +37,35 @@ class Tabuleiro():
 
     def fazer_jogada(self, linha, coluna, peca):
         self.tabuleiro[linha][coluna] = peca
+
+    def verificar_vitoria(self, linha, coluna, peca):
+        if (self._checar_horizontal(linha, peca) or 
+            self._checar_vertical(coluna, peca) or
+            self._checar_diagonal_principal(linha, coluna, peca) or
+            self._checar_diagonal_secundaria(linha, coluna, peca)):
+            
+            return True
+        
+        return False
+    
+    def _checar_horizontal(self,linha,peca):
+        contador = 0
+        for c in range(self.NUM_COLUNAS):
+            if self.tabuleiro[linha][c] == peca:
+                contador += 1
+                if contador >= 4:
+                    return True
+            else:
+                contador = 0
+        return False
+    
+    def _checar_vertical(self,coluna,peca):
+        contador = 0
+        for c in range(self.NUM_LINHAS):
+            if self.tabuleiro[c][coluna] == peca:
+                contador += 1
+
+        
 
     
 
