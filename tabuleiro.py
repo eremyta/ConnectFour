@@ -1,4 +1,3 @@
-
 class Tabuleiro():
     def __init__(self) -> None:
         self.NUM_LINHAS = 6
@@ -25,13 +24,14 @@ class Tabuleiro():
 
     
     def mostrar_tabuleiro(self):
+        CANTO = "🪤"
         print("\n  0 1 2 3 4 5 6")
-        print(" +-------------+")
+        print(f" {CANTO}-------------{CANTO}")
         
         for linha in self.tabuleiro:
             print(f"| {' '.join(linha)} |") 
             
-        print(" +-------------+")
+        print(f" {CANTO}-------------{CANTO}")
 
 
     def fazer_jogada(self, linha:int, coluna:int, peca:str):
