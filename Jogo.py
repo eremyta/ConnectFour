@@ -1,5 +1,5 @@
 import random
-from typing import List, Tuple, Optional
+from typing import Tuple, Optional
 from tabuleiro import Tabuleiro
 from jogador import Jogador
 
@@ -12,7 +12,7 @@ class Jogo():
     def __init__(self) -> None:
         self.tab = Tabuleiro()
     
-    def comeca_jogo(self) -> None:
+    def menu_jogo(self) -> None:
         print("Bem-vindo ao Connect Four (Quatro em Linha)!")
         
         while True:
@@ -53,6 +53,44 @@ class Jogo():
                 except ValueError:
                     print('Entrada inválida, por favor digite um número de 0 a 6')
         elif jogador.tipo == 'computador':
+            while True:
+                coluna = random.randrange(0, self.tab.NUM_COLUNAS)
+                linha_livre = self.tab.obter_linha_livre(coluna)
+                if linha_livre != -1:
+                    break
+            print(f'A Máquina escolheu {linha_livre}, {coluna}')
+            return linha_livre, coluna
+        return -1, -1
+    
+    def iniciar_partida(self) -> None:
+        self.quemJoga = self.jogador1
+        while True:
+            jogador_atual = self.quemJoga
+            if jogador_atual is None:
+                print(f'Não é possível jogar sem jogador, saindo do programa...')
+                break
+            self.tab.mostrar_tabuleiro()
+            print(f"\n--- Turno de {jogador_atual.nome} ({jogador_atual.peca}) ---")
+            linha_livre, coluna = self.obter_jogada()
+            self.tab.fazer_jogada(linha_livre, coluna, jogador_atual.peca)
+            if self.tab.verificar_vitoria(linha_livre, coluna, jogador_atual.peca):
+                self.tab.mostrar_tabuleiro()
+                print(f'Vitória de {jogador_atual}, parabéns!')
+                break
+            if self.tab.tabuleiro_cheio():
+                print(f'O jogo empatou, parabéns ao dois... Ou não!')
+                break
+
+            self.quemJoga = self.jogador2 if jogador_atual == self.jogador1 else self.jogador1
             
 
-   
+                    
+                    
+
+if __name__ == "__main__":
+    try:
+        jogo = Jogo() 
+        jogo.menu_jogo()
+        jogo.iniciar_partida()
+    except KeyboardInterrupt:
+        print("\n\nJogo encerrado. Até mais!")
