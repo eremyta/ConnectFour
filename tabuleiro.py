@@ -24,7 +24,7 @@ class Tabuleiro():
         return True
 
     
-    def show_tabuleiro(self):
+    def mostrar_tabuleiro(self):
         print("\n  0 1 2 3 4 5 6")
         print(" +-------------+")
         
@@ -95,4 +95,26 @@ class Tabuleiro():
         return False
     
     def _checar_diagonal_secundaria(self,coluna:int,linha:int,peca:str) -> bool:
-        pass
+        temp_lin , temp_col = linha, coluna
+        while temp_lin > 0 and temp_col < self.NUM_COLUNAS - 1:
+            temp_lin -= 1
+            temp_col += 1
+        
+        contador = 0
+
+        while temp_lin < self.NUM_LINHAS and temp_col > 0:
+        
+            if self.tabuleiro[temp_lin][temp_col] == peca:
+                contador +=1 
+                if contador >=4:
+                    return True
+            else:
+                contador = 0
+
+            temp_lin += 1
+            temp_col -= 1
+        
+        return False
+        
+
+        
