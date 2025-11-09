@@ -1,3 +1,4 @@
+
 class Tabuleiro():
     def __init__(self) -> None:
         self.NUM_LINHAS = 6
@@ -69,7 +70,7 @@ class Tabuleiro():
                 contador = 0
         return False
     
-    def _checar_diagonal_principal(self,coluna:int,linha:int,peca:str) -> bool:
+    def _checar_diagonal_principal(self,linha:int,coluna:int,peca:str) -> bool:
         temp_lin, temp_col = linha, coluna
         
         while temp_lin > 0 and temp_col > 0:
@@ -94,7 +95,7 @@ class Tabuleiro():
             
         return False
     
-    def _checar_diagonal_secundaria(self,coluna:int,linha:int,peca:str) -> bool:
+    def _checar_diagonal_secundaria(self,linha:int,coluna:int,peca:str) -> bool:
         temp_lin , temp_col = linha, coluna
         while temp_lin > 0 and temp_col < self.NUM_COLUNAS - 1:
             temp_lin -= 1
@@ -102,7 +103,7 @@ class Tabuleiro():
         
         contador = 0
 
-        while temp_lin < self.NUM_LINHAS and temp_col > 0:
+        while temp_lin < self.NUM_LINHAS - 1 and temp_col > 0:
         
             if self.tabuleiro[temp_lin][temp_col] == peca:
                 contador +=1 
